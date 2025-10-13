@@ -1,8 +1,8 @@
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
 
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(value: string): string {
+  return dirname(resolve(join(value, 'package.json')));
 }
 
 const reactIslandsUrl =
@@ -26,7 +26,7 @@ const config: StorybookConfig = {
     '../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   framework: {
-    name: getAbsolutePath('storybook-react-rsbuild'),
+    name: 'storybook-react-rsbuild',
     options: {},
   },
   addons: [
