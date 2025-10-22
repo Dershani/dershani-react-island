@@ -25,10 +25,7 @@ const config: StorybookConfig = {
     '../src/stories/**/*.mdx',
     '../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
-  framework: {
-    name: 'storybook-react-rsbuild',
-    options: {},
-  },
+  framework: 'storybook-react-rsbuild',
   addons: [
     {
       name: getAbsolutePath('storybook-addon-rslib'),
@@ -56,6 +53,9 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
+  // rsbuildFinal: c => {
+  //   return c;
+  // },
 };
 
 export default config;

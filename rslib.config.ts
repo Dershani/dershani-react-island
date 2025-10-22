@@ -1,15 +1,15 @@
-import { pluginReact } from "@rsbuild/plugin-react";
-import { defineConfig } from "@rslib/core";
-import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
+import { pluginReact } from '@rsbuild/plugin-react';
+import { defineConfig } from '@rslib/core';
+import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
 
-import { readdir } from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
+import { readdir } from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ISLANDS_DIR = path.resolve(__dirname, "src", "islands");
+const ISLANDS_DIR = path.resolve(__dirname, 'src', 'islands');
 
 async function buildExposes(dir: string): Promise<Record<string, string>> {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -23,9 +23,9 @@ async function buildExposes(dir: string): Promise<Record<string, string>> {
     } else if (ent.isFile() && /\.(tsx?|jsx?)$/.test(ent.name)) {
       const mfKey = `./${path
         .relative(ISLANDS_DIR, fullPath)
-        .replace(/\\/g, "/")
-        .replace(/\.(tsx?|jsx?)$/, "")}`;
-      const mfVal = `./src/islands/${path.relative(ISLANDS_DIR, fullPath).replace(/\\/g, "/")}`;
+        .replace(/\\/g, '/')
+        .replace(/\.(tsx?|jsx?)$/, '')}`;
+      const mfVal = `./src/islands/${path.relative(ISLANDS_DIR, fullPath).replace(/\\/g, '/')}`;
       exposes[mfKey] = mfVal;
     }
   }
@@ -36,17 +36,17 @@ async function buildExposes(dir: string): Promise<Record<string, string>> {
 const exposes = await buildExposes(ISLANDS_DIR);
 
 const reactIslandsUrl =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3001/mf"
-    : process.env.VERCEL_ENV === "production"
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3001/mf'
+    : process.env.VERCEL_ENV === 'production'
       ? process.env.VERCEL_PROJECT_PRODUCTION_URL
         ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/mf`
-        : ""
-      : process.env.VERCEL_ENV === "preview"
+        : ''
+      : process.env.VERCEL_ENV === 'preview'
         ? process.env.VERCEL_URL
           ? `https://${process.env.VERCEL_URL}/mf`
-          : ""
-        : "";
+          : ''
+        : '';
 
 export default defineConfig({
   source: {
@@ -56,32 +56,32 @@ export default defineConfig({
   },
   lib: [
     {
-      format: "mf",
+      format: 'mf',
       output: {
         assetPrefix: reactIslandsUrl,
         distPath: {
-          root: "./dist/mf",
+          root: './dist/mf',
         },
       },
       plugins: [
         pluginModuleFederation({
-          name: "react_islands",
+          name: 'react_islands',
           exposes,
           shared: {
             react: {
               singleton: true,
             },
-            "react-dom": {
+            'react-dom': {
               singleton: true,
             },
           },
-          shareStrategy: "loaded-first",
+          shareStrategy: 'loaded-first',
         }),
       ],
     },
   ],
   output: {
-    target: "web",
+    target: 'web',
   },
   server: {
     port: 3001,

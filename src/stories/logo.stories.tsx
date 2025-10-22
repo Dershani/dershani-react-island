@@ -1,3 +1,4 @@
+import React from 'react';
 import '@/styles.css';
 import Logo from 'react_islands/logo';
 import { Meta, StoryObj } from 'storybook-react-rsbuild';
