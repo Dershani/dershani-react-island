@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "rslib build && storybook build && cp -r storybook-static/* dist",
-    "dev": "concurrently 'pnpm rslib mf-dev' 'pnpm storybook dev'",
+    "dev": "concurrently 'bun rslib mf-dev' 'bun storybook'",
     "dev2": "rslib build --watch",
     "lint": "eslint .",
     "build:storybook": "storybook build -o dist",
