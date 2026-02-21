@@ -1,7 +1,7 @@
 import React from 'react';
 import '@/styles.css';
 import Logo from 'react_islands/logo';
-import { Meta, StoryObj } from 'storybook-react-rsbuild';
+import { preview } from '@/lib/preview';
 
 const Component = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
@@ -16,19 +16,17 @@ const Component = ({ theme }: { theme: 'light' | 'dark' }) => {
   );
 };
 
-const meta = {
+const meta = preview.meta({
   title: 'Dershani Logo',
   component: Component,
-} as Meta<typeof Component>;
+});
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-export const Light: Story = {
+export const Light = meta.story({
   args: { theme: 'light' },
-};
+});
 
-export const Dark: Story = {
+export const Dark = meta.story({
   args: { theme: 'dark' },
-};
+});

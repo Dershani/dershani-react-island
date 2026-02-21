@@ -49,6 +49,7 @@ const config: StorybookConfig = {
         },
       },
     },
+    '@github-ui/storybook-addon-performance-panel/preset',
   ],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
